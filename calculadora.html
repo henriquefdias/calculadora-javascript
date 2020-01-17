@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Calculadora</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<script>
+			var conta = [];
+			var achou = 0;
+			
+			function addItem(n) {
+				if (achou!=0) {
+					document.getElementById('visor').value="";
+					achou=0;
+				}
+				conta.push(n);
+				document.getElementById('visor').value+=n;
+			}
+			
+			function calcular() {
+				var visor = conta.join('');
+				var result = eval(visor);
+				if(result == "NaN" || result == "undefined") {
+					result = "Error";
+				}
+				document.getElementById('visor').value=result;
+				conta=result;
+				conta=[];
+				achou++;
+			}
+			
+			function apagar() {
+				conta.pop();
+				var visor = conta.join('');
+				document.getElementById('visor').value=visor;
+			}
+		
+			function underOne() {
+				var visor = conta.join('');
+				var divid = parseFloat(visor);
+				var res = 1 / divid;
+				if(res == "NaN" || res == "undefined") {
+					res = "Error";
+				}
+				document.getElementById('visor').value=res;
+				conta=[];
+				achou++;
+			}
+			
+			function callSqrt() {
+				var visor = conta.join('');
+				var divid = parseFloat(visor);
+				var res = Math.sqrt(divid);
+				if(res == "NaN" || res == "undefined") {
+					res = "Error";
+				}
+				document.getElementById('visor').value=res;
+				conta=[];
+				achou++;
+			}
+			
+			function callPercent() {
+				var indexes = [];
+				var num = [], percent = [];
+				for (var i=0; i<conta.length; i++) {
+					if(conta[i] == '*') {
+						indexes.push(conta[i]);
+					}
+				}
+				if (indexes.length>1) {
+					var errMsg = ["Error"];
+					document.getElementById('visor').value=errMsg;
+					conta=[];
+					achou++;
+				}
+				else {
+					for(var i=0; i<conta.length; i++) {
+						if(conta[i]!='*') {
+							num.push(conta[i]);
+						}
+						else {
+							var point = i+1;
+							break;
+						}
+					}
+					
+					for(var i=point; i<conta.length; i++) {
+						percent.push(conta[i]);
+					}
+					
+					var numS = num.join('');
+					var numF = parseFloat(numS);
+					var percentS = percent.join('');
+					var percentF = parseFloat(percentS);
+					
+					var res = (numF * percentF) * 0.01;
+					if(res == "NaN" || res == "undefined") {
+						res = "Error";
+					}
+					document.getElementById('visor').value=res;
+					conta=[];
+					num=[];
+					percent=[];
+					achou++;
+				}
+			}
+			
+			function inverteSinal() {
+				if(conta[0]=='-') {
+					conta.shift();
+					var visor = conta.join('');
+					document.getElementById('visor').value=visor;
+					
+				}
+				else {
+					conta.unshift('-');
+					var visor = conta.join('');
+					document.getElementById('visor').value=visor;
+				}
+			}
+			
+			function limpaVisor() {
+				document.getElementById('visor').value="";
+				conta=[];
+				achou=0;
+			}
+			
+			function arrumaHex () {
+				document.getElementById('botaoIgual').setAttribute("onclick", "calculaHex()");
+				document.getElementById('msg').innerHTML = "Hexadecimal";
+				
+			}
+			
+			function arrumaDec () {
+				document.getElementById('botaoIgual').setAttribute("onclick", "calcular()");
+				document.getElementById('msg').innerHTML = "Decimal";
+			}
+			
+			function arrumaOct () {
+				document.getElementById('botaoIgual').setAttribute("onclick", "calculaOct()");
+				document.getElementById('msg').innerHTML = "Octal";
+			}
+			
+			function arrumaBin () {
+				document.getElementById('botaoIgual').setAttribute("onclick", "calculaBin()");
+				document.getElementById('msg').innerHTML = "Binario";
+			}
+			
+			function calculaHex() {
+				var visor = conta.join('');
+				var verifAd = visor.replace(/\+/g, " + ");
+				var verifSub = verifAd.replace(/\-/g, " - ");
+				var verifMult = verifSub.replace(/\*/g, " * ");
+				var verifTotal = verifMult.replace(/\//g, " / ");
+				var vetorConta = verifTotal.split(" ");
+				var vetorDec = [];
+				for(var i=0; i<vetorConta.length; i++) {
+					if(vetorConta[i] == '+' || vetorConta[i] == '-' || vetorConta[i] == '*' || vetorConta[i] == '/') {
+						vetorDec.push(vetorConta[i]);
+						continue;
+					}
+					var index = parseInt(vetorConta[i], 16);
+					vetorDec.push(index);
+				}
+				var contaDec = vetorDec.join('');
+				var resultDec = eval(contaDec);
+				var resultHex = resultDec.toString(16);
+				if(resultHex == "NaN" || resultHex == "undefined") {
+					resultHex = "Error";
+				}
+				document.getElementById('visor').value=resultHex;
+				conta=[];
+				achou++;
+			}
+			
+			function calculaOct() {
+				var visor = conta.join('');
+				var verifAd = visor.replace(/\+/g, " + ");
+				var verifSub = verifAd.replace(/\-/g, " - ");
+				var verifMult = verifSub.replace(/\*/g, " * ");
+				var verifTotal = verifMult.replace(/\//g, " / ");
+				var vetorConta = verifTotal.split(" ");
+				var vetorDec = [];
+				for(var i=0; i<vetorConta.length; i++) {
+					if(vetorConta[i] == '+' || vetorConta[i] == '-' || vetorConta[i] == '*' || vetorConta[i] == '/') {
+						vetorDec.push(vetorConta[i]);
+						continue;
+					}
+					var index = parseInt(vetorConta[i], 8);
+					vetorDec.push(index);
+				}
+				var contaDec = vetorDec.join('');
+				var resultDec = eval(contaDec);
+				var resultOct = resultDec.toString(8);
+				if(resultOct == "NaN" || resultOct == "undefined") {
+					resultOct = "Error";
+				}
+				document.getElementById('visor').value=resultOct;
+				conta=[];
+				achou++;
+			}
+			
+			function calculaBin() {
+				var visor = conta.join('');
+				var verifAd = visor.replace(/\+/g, " + ");
+				var verifSub = verifAd.replace(/\-/g, " - ");
+				var verifMult = verifSub.replace(/\*/g, " * ");
+				var verifTotal = verifMult.replace(/\//g, " / ");
+				var vetorConta = verifTotal.split(" ");
+				var vetorDec = [];
+				for(var i=0; i<vetorConta.length; i++) {
+					if(vetorConta[i] == '+' || vetorConta[i] == '-' || vetorConta[i] == '*' || vetorConta[i] == '/') {
+						vetorDec.push(vetorConta[i]);
+						continue;
+					}
+					var index = parseInt(vetorConta[i], 2);
+					vetorDec.push(index);
+				}
+				var contaDec = vetorDec.join('');
+				var resultDec = eval(contaDec);
+				var resultBin = resultDec.toString(2);
+				if(resultBin == "NaN" || resultBin == "undefined") {
+					resultBin = "Error";
+				}
+				document.getElementById('visor').value=resultBin;
+				conta=[];
+				achou++;
+			}
+			
+			function chamaAlerta() {
+				document.getElementById('changeBox').style.display="block";
+				document.getElementById('changeBox').style.position="absolute";
+			}
+			
+			function showStand() {
+				document.getElementById('calcConv').style.display="none";
+				document.getElementById('calcNormal').style.display="block";
+				document.getElementById('changeBox').style.display="none";
+				document.getElementById('visor').value="";
+				conta = [];
+			}
+			
+			function showConv() {
+				document.getElementById('calcNormal').style.display="none";
+				document.getElementById('calcConv').style.display="block";
+				document.getElementById('changeBox').style.display="none";
+				document.getElementById('visor').value="";
+				conta = [];
+			}
+		</script>
+		<div id="changeBox">
+			<p id="change">Selecione o modo:</p>
+			<input class="botaoChange" type="button" name="stand" value="Padrao" id="stand" onclick=showStand()>
+			<input class="botaoChange" type="button" name="conv" value="BaseCalc" id="conv" onclick=showConv()>
+		</div>
+		<p id="logo">LA SUPER INCRIVEL<br> CALCTRON 3000</p>
+		<div id="visorDiv">
+			<input autocomplete="off" type="text" name="visor" id="visor" disabled="disabled">
+		</div>
+		<form>
+			<div id="calcNormal">
+				<table>
+					<tr>
+						<td align="center">
+							<input class = "botaoEscrito" type="button" name="backspace" value="BACKSPACE" onclick=apagar()>
+							<input class = "botaoEscrito" type="button" name="clear" value="CLEAR" onclick=limpaVisor()><br>
+							<input class = "botaoNum" type="button" name="7" value="7" onclick=addItem(7)>
+							<input class = "botaoNum" type="button" name="8" value="8" onclick=addItem(8)>
+							<input class = "botaoNum" type="button" name="9" value="9" onclick=addItem(9)>
+							<input class = "botaoNum" type="button" name="/" value="/" onclick=addItem('/')>
+							<input class = "botaoNum" type="button" name="sqrt" value="sqrt" onclick=callSqrt()><br>
+							<input class = "botaoNum" type="button" name="4" value="4" onclick=addItem(4)>
+							<input class = "botaoNum" type="button" name="5" value="5" onclick=addItem(5)>
+							<input class = "botaoNum" type="button" name="6" value="6" onclick=addItem(6)>
+							<input class = "botaoNum" type="button" name="*" value="*" onclick=addItem('*')>
+							<input class = "botaoNum" type="button" name="%" value="%" onclick=callPercent()><br>
+							<input class = "botaoNum" type="button" name="1" value="1" onclick=addItem(1)>
+							<input class = "botaoNum" type="button" name="2" value="2" onclick=addItem(2)>
+							<input class = "botaoNum" type="button" name="3" value="3" onclick=addItem(3)>
+							<input class = "botaoNum" type="button" name="-" value="-" onclick=addItem('-')>
+							<input class = "botaoNum" type="button" name="1/x" value="1/x" onclick=underOne()><br>
+							<input class = "botaoNum" type="button" name="0" value="0" onclick=addItem(0)>
+							<input class = "botaoNum" type="button" name="-/+" value="-/+" onclick=inverteSinal()>
+							<input class = "botaoNum" type="button" name="." value="." onclick=addItem('.')>
+							<input class = "botaoNum" type="button" name="+" value="+" onclick=addItem('+')>
+							<input class = "botaoNum" type="button" name="=" value="=" onclick=calcular()><br>
+							<input class = "botaoEscrito" type="button" name="mode" value="MODE" onclick=chamaAlerta()>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</form>
+		<div id="calcConv">
+			<table>
+				<tr align="center">
+					<td>
+						<input class = "botaoEscrito" type="button" name="backspace" value="BACKSPACE" onclick=apagar()>
+						<input class = "botaoEscrito" type="button" name="clear" value="CLEAR" onclick=limpaVisor()><br>
+						<input class = "botaoNumConv" type="button" name="7" value="7" onclick=addItem(7)>
+						<input class = "botaoNumConv" type="button" name="8" value="8" onclick=addItem(8)>
+						<input class = "botaoNumConv" type="button" name="9" value="9" onclick=addItem(9)>
+						<input class = "botaoNumConv" type="button" name="/" value="/" onclick=addItem('/')><br>
+						<input class = "botaoNumConv" type="button" name="4" value="4" onclick=addItem(4)>
+						<input class = "botaoNumConv" type="button" name="5" value="5" onclick=addItem(5)>
+						<input class = "botaoNumConv" type="button" name="6" value="6" onclick=addItem(6)>
+						<input class = "botaoNumConv" type="button" name="*" value="*" onclick=addItem('*')><br>
+						<input class = "botaoNumConv" type="button" name="1" value="1" onclick=addItem(1)>
+						<input class = "botaoNumConv" type="button" name="2" value="2" onclick=addItem(2)>
+						<input class = "botaoNumConv" type="button" name="3" value="3" onclick=addItem(3)>
+						<input class = "botaoNumConv" type="button" name="-" value="-" onclick=addItem('-')><br>
+						<input class = "botaoNumConv" type="button" name="0" value="0" id="zero" onclick=addItem(0)>
+						<input class = "botaoNumConv" type="button" name="+" value="+" onclick=addItem('+')>
+						<input class = "botaoNumConv" type="button" name="=" value="=" id="botaoIgual" onclick=calcular()><br>
+						<input class = "botaoNumConv" type="button" name="a" value="A" onclick=addItem('a')>
+						<input class = "botaoNumConv" type="button" name="b" value="B" onclick=addItem('b')>
+						<input class = "botaoNumConv" type="button" name="c" value="C" onclick=addItem('c')>
+						<input class = "botaoNumConv" type="button" name="d" value="D" onclick=addItem('d')>
+						<input class = "botaoNumConv" type="button" name="e" value="E" onclick=addItem('e')>
+						<input class = "botaoNumConv" type="button" name="f" value="F" onclick=addItem('f')><br>
+						<input class = "botaoConv"  type="button" name="hex" value="HEX" onclick=arrumaHex()>
+						<input class = "botaoConv" type="button" name="dec" value="DEC" onclick=arrumaDec()>
+						<input class = "botaoConv" type="button" name="oct" value="OCT" onclick=arrumaOct()>
+						<input class = "botaoConv" type="button" name="bin" value="BIN" onclick=arrumaBin()><br>
+						<input class = "botaoEscrito" type="button" name="mode" value="MODE" onclick=chamaAlerta()>
+						<p id="msg">Decimal</p>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

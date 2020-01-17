@@ -1,0 +1,152 @@
+@font-face {
+	font-family: "Futura";
+	src: url('futura medium bt.ttf');
+}
+
+@font-face {
+	font-family: "Hollywood";
+	src: url('SF Hollywood Hills.ttf');
+}
+
+body {
+	background-color: black;
+}
+
+#visor {
+	width: 501px;
+	max-height: 40px;
+	min-height: 40px;
+	outline-style: solid;
+	outline-width: thin;
+	outline-color: black;
+	background-color: orange;
+	padding: 5px;
+	font-size: 28px;
+	font-family: "Futura";
+	color: black;
+	text-align: right;
+	margin-left: 31%;
+}
+
+#calcNormal {
+	background-image: url('theshining.png');
+	width: 395px;
+	height: 180px;
+	margin-left: 31%;
+	padding-left: 120px;
+	padding-top: 10px;
+	outline-style: solid;
+	outline-width: thin;
+	outline-color: black;	
+}
+
+#calcConv {
+	display: none;
+	background-image: url('c15.png');
+	background-size: cover;
+	width: 425px;
+	height: 290px;
+	margin-left: 31%;
+	padding-left: 90px;
+	padding-top: 10px;
+	outline-style: solid;
+	outline-width: thin;
+	outline-color: black;
+	color: white;
+}
+
+#msg {
+	text-align: center;
+	font-family: "Futura";
+	font-size: 15pt;
+	background-color: purple;
+	color: white;
+	width: 200px;
+}
+
+#changeBox {
+	display: none;
+	margin-left:43%;
+	margin-top:20%;
+	position: absolute;
+	background-color: silver;
+	outline-style: solid;
+	outline-width: thin;
+	outline-color: black;
+	padding-bottom: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	background-color: #cc5933;
+}
+
+#change {
+	text-align: center;
+	font-family: "Futura";
+}
+
+#zero {
+	width: 104px;
+}
+
+#logo {
+	font-family: "Hollywood";
+	font-size: 50pt;
+	text-align: center;
+	margin-top:3%;
+	margin-bottom:2%;
+	color: white;
+}
+
+input:hover {
+	
+}
+
+input:active {
+	
+}
+
+.botaoNum {
+	width: 50px;
+	height: 25px;
+	background-color: yellow;
+	font-family: "Futura";
+	font-size: 18px;
+	text-align: center;
+}
+
+.botaoNumConv {
+	width: 50px;
+	height: 25px;
+	background-color: purple;
+	font-family: "Futura";
+	font-size: 18px;
+	text-align: center;
+	color: white;
+}
+
+.botaoEscrito {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 131px;
+	height: 25px;
+	background-color: #ff8623;
+	font-family: "Futura";
+	font-size: 15px;
+}
+
+.botaoConv {
+	width: 60px;
+	height: 25px;
+	background-color: purple;
+	font-family: "Futura";
+	font-size: 18px;
+	text-align: center;
+	color: white;
+}
+
+.botaoChange {
+	width: 80px;
+	height: 25px;
+	font-family: "Futura";
+	background-color: #f4aa42;
+}
